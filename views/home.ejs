@@ -34,7 +34,7 @@
         <div class="container">
             <div class="card-grid" style="margin-top: -6rem; margin-bottom: 10rem;">
                 <!-- Bento Card: Continue Reading -->
-                <div class="course-card animate-in" style="grid-column: span 2; padding: 3rem;">
+                <div class="course-card bento-large animate-in" style="padding: 3rem;">
                     <span class="section-label">Resume Learning</span>
                     <h2 class="card-title" style="font-size: 1.8rem;">Jurisprudence of Modern Life</h2>
                     <p class="card-desc" style="font-size: 1.05rem;">Continue where you left off in Chapter 4: Ethics of Digital Interaction.</p>
@@ -96,6 +96,37 @@
                 <h2 style="font-size: 3rem; margin-bottom: 4rem;">Scholarly Series</h2>
             </div>
             
+            <% if (lectures.length === 0) { %>
+            <div class="card-grid" style="margin-bottom: 10rem;">
+                <!-- Dummy Card 1 -->
+                <div class="course-card animate-in">
+                    <div class="card-image-wrapper">
+                        <img src="/static/img/bc807b5d-dd43-453a-891c-189497072254.png" alt="Coming Soon">
+                    </div>
+                    <h3 class="card-title">Principles of Islamic Jurisprudence</h3>
+                    <p class="card-desc">An upcoming deep-dive into the foundational rules of Fiqh and their applications in modern times.</p>
+                    <div style="margin-top: 2rem; color: var(--accent); font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Coming Soon</div>
+                </div>
+                <!-- Dummy Card 2 -->
+                <div class="course-card animate-in" style="animation-delay: 0.1s;">
+                    <div class="card-image-wrapper">
+                        <img src="/static/img/4ca1c577-6480-4cfa-a4fc-4729f8ca835c.png" alt="Coming Soon">
+                    </div>
+                    <h3 class="card-title">The Prophetic Biography</h3>
+                    <p class="card-desc">Exploring the life and character of Prophet Muhammad (PBUH) as a guide for character development.</p>
+                    <div style="margin-top: 2rem; color: var(--accent); font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Coming Soon</div>
+                </div>
+                <!-- Dummy Card 3 -->
+                <div class="course-card animate-in" style="animation-delay: 0.2s;">
+                    <div class="card-image-wrapper">
+                        <img src="/static/img/6407d2d5-bceb-487a-b248-93cf95952b99.png" alt="Coming Soon">
+                    </div>
+                    <h3 class="card-title">Purification of the Heart</h3>
+                    <p class="card-desc">A series focused on Tazkiyah, spirituality, and achieving inner peace through faith.</p>
+                    <div style="margin-top: 2rem; color: var(--accent); font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Coming Soon</div>
+                </div>
+            </div>
+            <% } else { %>
             <div class="card-grid" style="margin-bottom: 10rem;">
                 <% lectures.forEach(function(lecture, index) { %>
                 <a href="/lecture/<%= lecture.id %>/" class="course-card animate-in" style="animation-delay: <%= index * 0.1 %>s">
@@ -111,6 +142,7 @@
                 </a>
                 <% }); %>
             </div>
+            <% } %>
             <% } %>
         </div>
     </main>

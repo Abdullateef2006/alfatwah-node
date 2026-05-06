@@ -134,7 +134,7 @@ a {
 
 .mobile-menu-btn {
     display: none;
-    color: white;
+    color: var(--text-primary);
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -246,8 +246,16 @@ a {
    --------------------------------------------------------------------------- */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 3rem;
+}
+
+.bento-large {
+    grid-column: span 2;
+}
+
+@media (max-width: 1024px) {
+    .bento-large { grid-column: span 1; }
 }
 
 .course-card {
@@ -625,57 +633,94 @@ a {
     box-shadow: 0 10px 20px -5px rgba(5, 150, 105, 0.4);
 }
 
-@media (max-width: 768px) {
-    .listen-text {
-        display: none;
-    }
+@media (max-width: 1024px) {
+    .container { width: 92%; }
+    .footer-grid { gap: 3rem; }
+}
 
-    .nav-links {
-        display: none;
+@media (max-width: 768px) {
+    /* Layout & Containers */
+    .container { width: 90%; }
+    
+    /* Header & Nav */
+    .listen-text { display: none; }
+    .nav-links { 
+        display: none; 
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
         background: var(--bg-surface);
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(15px);
         flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
+        padding: 3rem;
+        gap: 2rem;
         border-bottom: 1px solid var(--border-glass);
-    }
-
-    .nav-links.show {
-        display: flex;
-    }
-
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .hero {
-        padding: 6rem 0;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         text-align: center;
     }
+    .nav-links.show { display: flex; }
+    .mobile-menu-btn { display: block; }
 
-    .footer-brand {
-        display: flex;
+    /* Hero Section */
+    .hero { padding: 6rem 0 8rem; }
+    .hero h1 { font-size: 2.8rem; line-height: 1.2; }
+    .hero p { font-size: 1rem; margin-bottom: 3rem; }
+    
+    /* Search Bar Mobile */
+    .search-container {
         flex-direction: column;
-        align-items: center;
+        background: none;
+        border: none;
+        box-shadow: none;
+        gap: 1rem;
+        padding: 0;
     }
-
-    .social-links {
+    .search-input {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-glass);
+        border-radius: 99px;
+        padding: 1.25rem 2rem;
+        width: 100%;
+        height: 64px;
+        box-shadow: var(--shadow-soft);
+    }
+    .search-container .btn-primary {
+        width: 100%;
+        height: 64px;
         justify-content: center;
+        box-shadow: var(--shadow-elite);
     }
 
-    .footer-bottom {
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
-    }
+    /* Bento Grid & Cards */
+    .card-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .course-card { border-radius: 32px; padding: 2rem; }
+    .card-image-wrapper { border-radius: 24px; }
+    .card-title { font-size: 1.25rem; }
+
+    /* Episode List & Player */
+    .details-hero, .player-hero, .list-hero { padding: 6rem 0; margin-bottom: 4rem; }
+    .episode-link { padding: 1.5rem; border-radius: 24px; gap: 1rem; }
+    .ep-name { font-size: 1.2rem; }
+    .play-icon { width: 52px; height: 52px; font-size: 1.1rem; }
+    
+    .media-box { padding: 2rem; border-radius: 32px; }
+    .video-player { border-radius: 20px; }
+    .audio-player-box { padding: 1.5rem; border-radius: 20px; }
+
+    /* QA & Forms */
+    .qa-card { padding: 2rem; border-radius: 24px; }
+    .qa-item { gap: 1.25rem; padding: 1.5rem 0; }
+    .qa-text { font-size: 1rem; }
+    .form-title { font-size: 1.4rem; gap: 1rem; }
+    .form-control { padding: 1.25rem; border-radius: 20px; }
+
+    /* Footer */
+    .footer { padding: 6rem 0 3rem; margin-top: 6rem; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 4rem; }
+    .footer-brand { display: flex; flex-direction: column; align-items: center; }
+    .social-links { justify-content: center; }
+    .footer-bottom { flex-direction: column; gap: 2rem; text-align: center; padding-top: 3rem; }
 }
 
 /* Animations */
