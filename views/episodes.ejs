@@ -11,157 +11,38 @@
     <title><%= episodes.title %> - <%= episodes.lecture ? episodes.lecture.title : '' %></title>
 </head>
 <body>
-    <header class="header">
-        <div class="container nav-container">
-            <a href="/" class="logo-link">
-                <i class="fa-solid fa-book-quran"></i>
-                <span>Al-Fatwa</span>
-            </a>
-            <nav class="nav-links" id="navLinks">
-                <a href="/" class="nav-item">Home</a>
-                <a href="/list/" class="nav-item active">Lectures</a>
-            </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </header>
+    <%- include('partials/header') %>
 
     <main class="main-content">
-        <style>
-            .media-header {
-                background: linear-gradient(135deg, var(--bg-card), var(--bg-main));
-                padding: 3rem 1rem;
-                border-bottom: 1px solid var(--border-color);
-                margin-bottom: 2rem;
-                text-align: center;
-            }
-            .lecture-breadcrumb {
-                color: var(--primary);
-                font-weight: 600;
-                font-size: 0.9rem;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                margin-bottom: 0.5rem;
-                display: block;
-            }
-            .episode-title { font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--text-primary); max-width: 800px; margin: 0 auto; }
-            .media-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto 4rem; }
-            .player-card {
-                background: var(--bg-card);
-                border: 1px solid var(--border-color);
-                border-radius: 20px;
-                padding: 2rem;
-                box-shadow: var(--shadow-md);
-            }
-            .player-card-header {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                margin-bottom: 1.5rem;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid var(--border-color);
-            }
-            .player-card-header h3 { font-size: 1.25rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; }
-            .video-container { width: 100%; border-radius: 12px; overflow: hidden; background: #000; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-            .video-container video { width: 100%; display: block; }
-            .audio-container { width: 100%; background: var(--bg-main); padding: 1rem; border-radius: 9999px; border: 1px solid var(--border-color); }
-            .audio-container audio { width: 100%; outline: none; }
-            .qa-section { max-width: 900px; margin: 0 auto; }
-            .qa-header { font-size: 2rem; color: var(--text-primary); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; }
-            .qa-list { background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); padding: 0 2rem; }
-            .qa-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); display: flex; gap: 1rem; }
-            .qa-item:last-child { border-bottom: none; }
-            .qa-icon { color: var(--primary); font-size: 1.25rem; margin-top: 0.25rem; }
-            .qa-text { font-size: 1.1rem; color: var(--text-primary); line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 500; }
-            .ask-question-form {
-                margin-top: 3rem;
-                padding: 2rem;
-                background: var(--bg-card);
-                border: 1px solid var(--border-color);
-                border-radius: 20px;
-                box-shadow: var(--shadow-sm);
-            }
-            .form-title { font-size: 1.5rem; color: var(--text-primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-            .form-group { margin-bottom: 1.5rem; }
-            .form-control {
-                width: 100%;
-                padding: 1rem 1.25rem;
-                border-radius: 12px;
-                border: 2px solid var(--border-color);
-                background: var(--bg-main);
-                color: var(--text-primary);
-                font-size: 1rem;
-                transition: all 0.3s ease;
-                resize: vertical;
-                min-height: 120px;
-                font-family: 'Inter', sans-serif;
-            }
-            .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1); }
-            .submit-btn {
-                background: var(--primary);
-                color: white;
-                border: none;
-                padding: 1rem 2rem;
-                border-radius: 12px;
-                font-weight: 600;
-                font-size: 1rem;
-                cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                width: fit-content;
-            }
-            .submit-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); filter: brightness(1.1); }
-            .submit-btn:active { transform: translateY(0); }
-        </style>
+        <!-- Local overrides if any, otherwise rely on global styles.css -->
 
-        <div class="media-header">
+        <div class="player-hero animate-in">
             <div class="container">
-                <% if (episodes.lecture) { %>
-                    <a href="/lecture/<%= episodes.lecture.id %>/" class="lecture-breadcrumb">
-                        <i class="fa-solid fa-arrow-left" style="margin-right: 0.5rem; font-size: 0.8rem;"></i>
-                        <%= episodes.lecture.title %>
-                    </a>
-                <% } %>
-                <h1 class="episode-title"><%= episodes.title %></h1>
+                <a href="/lecture/<%= episodes.lecture.id %>/" class="lecture-breadcrumb" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem;">
+                    <i class="fa-solid fa-arrow-left"></i> <%= episodes.lecture.title %>
+                </a>
+                <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; font-weight: 800; margin-bottom: 4rem;"><%= episodes.title %></h1>
+                
+                <div class="media-box">
+                    <% if (episodes.videoUrl) { %>
+                    <div class="video-player">
+                        <video src="<%= episodes.videoUrl %>" controls></video>
+                    </div>
+                    <% } %>
+
+                    <% if (episodes.audioUrl) { %>
+                    <div class="audio-player-box">
+                        <h3><i class="fa-solid fa-volume-high"></i> Audio Transcription</h3>
+                        <audio src="<%= episodes.audioUrl %>" controls></audio>
+                    </div>
+                    <% } %>
+                </div>
             </div>
         </div>
 
-        <div class="container">
-            <div class="media-layout">
-                <!-- Video Player -->
-                <% if (episodes.videoUrl) { %>
-                <div class="player-card">
-                    <div class="player-card-header">
-                        <h3><i class="fa-solid fa-video" style="color: var(--primary);"></i> Video Watch</h3>
-                    </div>
-                    <div class="video-container">
-                        <video src="<%= episodes.videoUrl %>" controls></video>
-                    </div>
-                </div>
-                <% } %>
-
-                <!-- Audio Player -->
-                <% if (episodes.audioUrl) { %>
-                <div class="player-card">
-                    <div class="player-card-header">
-                        <h3><i class="fa-solid fa-headphones" style="color: var(--primary);"></i> Audio Listen</h3>
-                    </div>
-                    <div class="audio-container">
-                        <audio src="<%= episodes.audioUrl %>" controls></audio>
-                    </div>
-                </div>
-                <% } %>
-            </div>
-
-            <!-- Questions Section -->
-            <div class="qa-section">
-                <h2 class="qa-header">
-                    <i class="fa-solid fa-circle-question" style="color: var(--primary);"></i> About this episode
-                </h2>
-
+        <div class="container animate-in">
+            <div class="qa-card">
+                <span class="section-label" style="margin-bottom: 2rem;">Common Questions & Answers</span>
                 <div class="qa-list">
                     <% if (question.length === 0) { %>
                     <div style="padding: 2rem; text-align: center; color: var(--text-muted);">
@@ -203,38 +84,6 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fa-solid fa-book-quran"></i>
-                    Al-Fatwa Islamic Teachings
-                </div>
-                <ul class="footer-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/list/">Lectures</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-bottom">
-                &copy; 2026 Al-Fatwa Islamic Teachings. All rights reserved.
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-            const icon = mobileMenuBtn.querySelector('i');
-            if (navLinks.classList.contains('show')) {
-                icon.classList.remove('fa-bars'); icon.classList.add('fa-xmark');
-            } else {
-                icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars');
-            }
-        });
-    </script>
+    <%- include('partials/footer') %>
 </body>
 </html>

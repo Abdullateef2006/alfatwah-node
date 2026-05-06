@@ -1,0 +1,71 @@
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand animate-in">
+                <a href="/" class="logo-link" style="margin-bottom: 0;">
+                    <i class="fa-solid fa-book-quran"></i>
+                    <span>Al-Fatwa</span>
+                </a>
+                <p>Authentic Islamic knowledge, simplified for the modern world. Led by Sheikh Dhikrullah Shafi'i.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-column animate-in" style="animation-delay: 0.1s;">
+                <h4>Library</h4>
+                <ul>
+                    <li><a href="/list/">All Lectures</a></li>
+                    <li><a href="#">Jurisprudence</a></li>
+                    <li><a href="#">Prophetic Seerah</a></li>
+                    <li><a href="#">Creed</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column animate-in" style="animation-delay: 0.2s;">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Ask a Question</a></li>
+                    <li><a href="#">Q&A Archive</a></li>
+                    <li><a href="#">Articles</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column animate-in" style="animation-delay: 0.3s;">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Support Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom animate-in" style="animation-delay: 0.4s;">
+            <p>&copy; 2026 Al-Fatwa Platform. All rights reserved.</p>
+            <div style="display: flex; gap: 2rem;">
+                <span>Nigeria</span>
+                <span>International</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('show')) {
+                icon.classList.remove('fa-bars'); icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars');
+            }
+        });
+    }
+</script>

@@ -3,382 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore Al-Fatwa Islamic Teachings: A comprehensive library of lectures and Q&A episodes by Sheikh Dhikrullah Shafi'i to help you grow in faith and understanding.">
-    <meta name="keywords" content="Islamic teachings, Al-Fatwa, Sheikh Dhikrullah Shafi'i, Quran, Sunnah, Islamic lectures, Fatwa, Islamic education">
-    <meta name="author" content="Al-Fatwa Team">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Home - Al-Fatwa Islamic Teachings">
-    <meta property="og:description" content="Grow in your faith with teachings from Sheikh Dhikrullah Shafi'i.">
-    <meta property="og:image" content="/static/img/bc807b5d-dd43-453a-891c-189497072254.png">
-    <meta property="twitter:card" content="summary_large_image">
+    <meta name="description" content="Explore Al-Fatwa Islamic Teachings: A comprehensive library of lectures and Q&A episodes by Sheikh Dhikrullah Shafi'i.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <link rel="stylesheet" href="/static/css/styles.css">
     <title>Home - Al-Fatwa</title>
 </head>
 <body>
-    <header class="header">
-        <div class="container nav-container">
-            <a href="/" class="logo-link">
-                <i class="fa-solid fa-book-quran"></i>
-                <span>Al-Fatwa</span>
-            </a>
-            <nav class="nav-links" id="navLinks">
-                <a href="/" class="nav-item active">Home</a>
-                <a href="/list/" class="nav-item">Lectures</a>
-            </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </header>
+    <%- include('partials/header') %>
 
     <main class="main-content">
-        <style>
-            .hero {
-                position: relative;
-                padding: 6rem 1rem;
-                border-radius: 24px;
-                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)),
-                url("/static/img/bc807b5d-dd43-453a-891c-189497072254.png") center/cover no-repeat;
-                color: white;
-                text-align: center;
-                margin: 2rem auto;
-                box-shadow: var(--shadow-xl);
-                overflow: hidden;
-            }
-            .hero-content {
-                position: relative;
-                z-index: 2;
-                max-width: 800px;
-                margin: 0 auto;
-            }
-            .hero h1 {
-                font-size: clamp(2.5rem, 5vw, 4rem);
-                margin-bottom: 1.5rem;
-                color: white;
-                line-height: 1.1;
-                letter-spacing: -0.02em;
-            }
-            .hero p {
-                font-size: clamp(1rem, 2vw, 1.25rem);
-                color: var(--primary-light);
-                margin-bottom: 3rem;
-                opacity: 0.9;
-            }
-            .search-container {
-                display: flex;
-                background: var(--glass-bg);
-                border-radius: 9999px;
-                padding: 0.5rem;
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                max-width: 600px;
-                margin: 0 auto;
-                backdrop-filter: blur(20px);
-                transform: translateY(0);
-                transition: var(--transition);
-            }
-            .search-container:focus-within {
-                transform: translateY(-2px);
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            }
-            .search-input {
-                flex: 1;
-                border: none;
-                background: transparent;
-                padding: 1rem 1.5rem;
-                font-size: 1.1rem;
-                color: var(--text-primary);
-                outline: none;
-            }
-            .search-btn {
-                padding: 0.75rem 2rem;
-                border-radius: 9999px;
-                font-size: 1rem;
-            }
-            .section-header {
-                margin: 4rem 0 2rem;
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            }
-            .section-header h2 { font-size: 2rem; color: var(--text-primary); }
-            .section-header::after {
-                content: '';
-                flex: 1;
-                height: 1px;
-                background: linear-gradient(to right, var(--border-color), transparent);
-            }
-            .card-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 2rem;
-            }
-            .course-card {
-                background: var(--bg-card);
-                border-radius: 20px;
-                overflow: hidden;
-                box-shadow: var(--shadow-sm);
-                transition: var(--transition);
-                border: 1px solid var(--border-color);
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-            }
-            .course-card:hover {
-                transform: translateY(-8px);
-                box-shadow: var(--shadow-lg);
-                border-color: var(--primary-light);
-            }
-            .card-image-wrapper {
-                position: relative;
-                padding-top: 60%;
-                overflow: hidden;
-            }
-            .card-image-wrapper img {
-                position: absolute;
-                top: 0; left: 0;
-                width: 100%; height: 100%;
-                object-fit: cover;
-                transition: transform 0.5s ease;
-            }
-            .course-card:hover .card-image-wrapper img { transform: scale(1.05); }
-            .card-content {
-                padding: 1.5rem;
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
-            .card-title {
-                font-size: 1.25rem;
-                color: var(--text-primary);
-                margin-bottom: 0.5rem;
-                font-weight: 700;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            }
-            .card-title:hover { color: var(--primary); }
-            .card-desc {
-                color: var(--text-secondary);
-                font-size: 0.95rem;
-                line-height: 1.5;
-                margin-bottom: 1.5rem;
-                flex: 1;
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            }
-            .card-footer {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-top: 1rem;
-                border-top: 1px solid var(--border-color);
-            }
-            .scholar-banner {
-                background: linear-gradient(135deg, var(--primary), var(--accent));
-                border-radius: 24px;
-                padding: 3rem;
-                color: white;
-                margin: 4rem 0;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.3);
-                flex-wrap: wrap;
-                gap: 2rem;
-            }
-            .scholar-text { max-width: 600px; }
-            .scholar-text h2 { color: white; margin-bottom: 1rem; font-size: 2.25rem; }
-            .scholar-text p { color: var(--primary-light); font-size: 1.1rem; }
-        </style>
+        <div class="hero animate-in">
+            <div class="container">
+                <span class="section-label">A Legacy of Knowledge</span>
+                <h1>Seek Wisdom. <br>Embrace Excellence.</h1>
+                <p>Join a global community dedicated to authentic Islamic scholarship and spiritual growth. Led by Sheikh Dhikrullah Shafi'i.</p>
+                
+                <form action="/search/" method="POST" class="search-container animate-in" style="animation-delay: 0.2s;">
+                    <input type="text" name="search" class="search-input" placeholder="Search for lectures, topics, or fatwas..." required>
+                    <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2.2rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fa-solid fa-magnifying-glass" style="font-size: 0.9rem;"></i>
+                        <span>Search Now</span>
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <div class="container">
-            <!-- Hero Section -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h1>Welcome to Islamic Teachings</h1>
-                    <p>Grow in your faith with teachings from Sheikh Dhikrullah Shafi'i. Explore our library of thousands of lessons and Q&A episodes.</p>
-
-                    <form action="/search/" method="post" class="search-container">
-                        <i class="fa-solid fa-magnifying-glass" style="margin-left: 1.5rem; color: var(--text-secondary); align-self: center; font-size: 1.2rem;"></i>
-                        <input type="text" id="q" placeholder="Search for a lecture, topic, or question..." name="search" class="search-input" required>
-                        <button type="submit" class="btn btn-primary search-btn">Search</button>
-                    </form>
+            <div class="card-grid" style="margin-top: -6rem; margin-bottom: 10rem;">
+                <!-- Bento Card: Continue Reading -->
+                <div class="course-card animate-in" style="grid-column: span 2; padding: 3rem;">
+                    <span class="section-label">Resume Learning</span>
+                    <h2 class="card-title" style="font-size: 1.8rem;">Jurisprudence of Modern Life</h2>
+                    <p class="card-desc" style="font-size: 1.05rem;">Continue where you left off in Chapter 4: Ethics of Digital Interaction.</p>
+                    <div style="margin-top: 2.5rem;">
+                        <a href="#" style="color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                            Continue Reading <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </section>
+
+                <!-- Bento Card: Prayer Times -->
+                <div class="course-card animate-in" style="padding: 3rem;">
+                    <span class="section-label">Spiritual Pulse</span>
+                    <h2 class="card-title">Prayer Times</h2>
+                    <div style="margin-top: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border-glass);">
+                            <span style="font-weight: 500; color: var(--text-secondary);">Fajr</span> 
+                            <span style="font-weight: 700; color: var(--primary);">05:12 AM</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 1rem 0; color: var(--primary);">
+                            <span style="font-weight: 700;">Dhuhr</span> 
+                            <span style="font-weight: 800; font-size: 1.1rem;">12:45 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bento Card: Upcoming Lessons -->
+                <div class="course-card animate-in" style="padding: 3rem;">
+                    <span class="section-label">Live Learning</span>
+                    <h2 class="card-title">Live Lessons</h2>
+                    <p class="card-desc">Next: Tafsir of Surah Al-Kahf with Sheikh Shafi'i.</p>
+                    <span style="display: block; margin-top: 1.5rem; color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Today, 8:00 PM</span>
+                </div>
+            </div>
 
             <% if (query) { %>
-            <div class="section-header">
-                <h2>Search Results</h2>
-            </div>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-                Found <%= count %> result(s) for "<span style="color: var(--primary); font-weight: 600;"><%= query %></span>"
-            </p>
-
-            <div class="card-grid">
-                <% lectures.forEach(function(lecture) { %>
-                <a href="/lecture/<%= lecture.id %>/" class="course-card" style="text-decoration: none;">
-                    <div class="card-image-wrapper">
-                        <% if (lecture.imgUrl) { %>
-                        <img src="<%= lecture.imgUrl %>" alt="<%= lecture.title %>" loading="lazy">
-                        <% } else { %>
-                        <img src="/static/img/bc807b5d-dd43-453a-891c-189497072254.png" alt="<%= lecture.title %>" loading="lazy">
-                        <% } %>
-                    </div>
-                    <div class="card-content">
-                        <p style="color: var(--primary); font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Lecture</p>
+            <div style="margin-bottom: 8rem;">
+                <span class="section-label">Search Results</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 4rem;">Results for "<%= query %>"</h2>
+                <div class="card-grid">
+                    <% lectures.forEach(function(lecture, index) { %>
+                    <a href="/lecture/<%= lecture.id %>/" class="course-card animate-in" style="animation-delay: <%= index * 0.1 %>s">
+                        <div class="card-image-wrapper">
+                            <% if (lecture.imgUrl) { %>
+                            <img src="<%= lecture.imgUrl %>" alt="<%= lecture.title %>">
+                            <% } else { %>
+                            <img src="/static/img/bc807b5d-dd43-453a-891c-189497072254.png" alt="<%= lecture.title %>">
+                            <% } %>
+                        </div>
                         <h3 class="card-title"><%= lecture.title %></h3>
                         <p class="card-desc"><%= lecture.description %></p>
-                    </div>
-                </a>
-                <% }); %>
+                    </a>
+                    <% }); %>
+                </div>
             </div>
             <% } else { %>
-
-            <!-- New & Noteworthy -->
-            <div class="section-header">
-                <h2>New &amp; Noteworthy</h2>
+            <div style="margin-bottom: 5rem; text-align: center;">
+                <span class="section-label">Explore the Library</span>
+                <h2 style="font-size: 3rem; margin-bottom: 4rem;">Scholarly Series</h2>
             </div>
-            <div class="card-grid">
-                <a href="/list/" class="course-card">
+            
+            <div class="card-grid" style="margin-bottom: 10rem;">
+                <% lectures.forEach(function(lecture, index) { %>
+                <a href="/lecture/<%= lecture.id %>/" class="course-card animate-in" style="animation-delay: <%= index * 0.1 %>s">
                     <div class="card-image-wrapper">
-                        <img src="/static/img/bc807b5d-dd43-453a-891c-189497072254.png" alt="Course Image" loading="lazy">
+                        <% if (lecture.imgUrl) { %>
+                        <img src="<%= lecture.imgUrl %>" alt="<%= lecture.title %>">
+                        <% } else { %>
+                        <img src="/static/img/bc807b5d-dd43-453a-891c-189497072254.png" alt="<%= lecture.title %>">
+                        <% } %>
                     </div>
-                    <div class="card-content" style="padding: 1rem;">
-                        <h3 class="card-title" style="font-size: 1.1rem;">Understanding Fasting</h3>
-                    </div>
+                    <h3 class="card-title"><%= lecture.title %></h3>
+                    <p class="card-desc"><%= lecture.description %></p>
                 </a>
-                <a href="/list/" class="course-card">
-                    <div class="card-image-wrapper">
-                        <img src="/static/img/4ca1c577-6480-4cfa-a4fc-4729f8ca835c.png" alt="Course Image">
-                    </div>
-                    <div class="card-content" style="padding: 1rem;">
-                        <h3 class="card-title" style="font-size: 1.1rem;">Principles of Zakat</h3>
-                    </div>
-                </a>
-                <a href="/list/" class="course-card">
-                    <div class="card-image-wrapper">
-                        <img src="/static/img/6407d2d5-bceb-487a-b248-93cf95952b99.png" alt="Course Image">
-                    </div>
-                    <div class="card-content" style="padding: 1rem;">
-                        <h3 class="card-title" style="font-size: 1.1rem;">Daily Supplications</h3>
-                    </div>
-                </a>
-                <a href="/list/" class="course-card">
-                    <div class="card-image-wrapper">
-                        <img src="/static/img/6dc2c9c6-009c-4394-9115-fbbc362e055f.png" alt="Course Image">
-                    </div>
-                    <div class="card-content" style="padding: 1rem;">
-                        <h3 class="card-title" style="font-size: 1.1rem;">Seerah of the Prophet</h3>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Ask a Scholar Banner -->
-            <div class="scholar-banner">
-                <div class="scholar-text">
-                    <h2>Ask a Scholar</h2>
-                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; backdrop-filter: blur(10px);">
-                        <p style="font-weight: 600; color: white; margin-bottom: 0.5rem;">
-                            <i class="fa-solid fa-quote-left" style="opacity: 0.5; margin-right: 0.5rem;"></i>
-                            Is it haram to work as a fashion designer?
-                        </p>
-                        <p style="font-size: 0.95rem; opacity: 0.9;">"I have a passion for fashion design and I want to pursue it as a career. But I'm not sure if it's permissible in Islam. Can you help me understand?"</p>
-                    </div>
-                </div>
-                <div>
-                    <a href="/list/" class="btn" style="background: white; color: var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-decoration: none;">
-                        View Answer <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Trending Section -->
-            <div class="section-header">
-                <h2>Trending Now</h2>
-            </div>
-            <div class="card-grid">
-                <a href="/list/" class="course-card">
-                    <div class="card-image-wrapper">
-                        <img src="/static/img/bc807b5d-dd43-453a-891c-189497072254.png" alt="Trending" loading="lazy">
-                    </div>
-                    <div class="card-content">
-                        <p style="color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">5hrs 20min</p>
-                        <h3 class="card-title">The importance of intention in Islam</h3>
-                    </div>
-                </a>
-                <a href="/list/" class="course-card">
-                    <div class="card-image-wrapper">
-                        <img src="/static/img/4ca1c577-6480-4cfa-a4fc-4729f8ca835c.png" alt="Trending">
-                    </div>
-                    <div class="card-content">
-                        <p style="color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">4hrs 10min</p>
-                        <h3 class="card-title">Purity and Prayer</h3>
-                    </div>
-                </a>
-                <a href="/list/" class="course-card">
-                    <div class="card-image-wrapper">
-                        <img src="/static/img/6407d2d5-bceb-487a-b248-93cf95952b99.png" alt="Trending">
-                    </div>
-                    <div class="card-content">
-                        <p style="color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">3hrs 45min</p>
-                        <h3 class="card-title">Rights of Parents</h3>
-                    </div>
-                </a>
-                <a href="/list/" class="course-card">
-                    <div class="card-image-wrapper">
-                        <img src="/static/img/6dc2c9c6-009c-4394-9115-fbbc362e055f.png" alt="Trending">
-                    </div>
-                    <div class="card-content">
-                        <p style="color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">2hrs 30min</p>
-                        <h3 class="card-title">Business Ethics</h3>
-                    </div>
-                </a>
+                <% }); %>
             </div>
             <% } %>
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fa-solid fa-book-quran"></i>
-                    Al-Fatwa Islamic Teachings
-                </div>
-                <ul class="footer-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/list/">Lectures</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-bottom">
-                &copy; 2026 Al-Fatwa Islamic Teachings. All rights reserved.
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-            const icon = mobileMenuBtn.querySelector('i');
-            if (navLinks.classList.contains('show')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            } else {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
-        });
-    </script>
+    <%- include('partials/footer') %>
 </body>
 </html>

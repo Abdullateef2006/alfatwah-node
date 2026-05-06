@@ -3,40 +3,44 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 2rem 0;
-        padding: 1rem;
+        margin-top: 4rem;
     }
     .pagination-container {
         display: flex;
         align-items: center;
-        gap: 1rem;
-        background: var(--bg-card);
-        padding: 0.5rem 1rem;
-        border-radius: 9999px;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--border-color);
+        gap: 0.5rem;
+        background: var(--bg-surface);
+        padding: 0.5rem;
+        border-radius: 20px;
+        border: 1px solid var(--border-glass);
+        box-shadow: var(--shadow-elite);
     }
     .page-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 0.5rem 1.25rem;
-        border-radius: 9999px;
-        color: var(--text-primary);
-        font-weight: 600;
-        transition: var(--transition);
-        background: transparent;
-        text-decoration: none;
-    }
-    .page-btn:hover { background-color: var(--primary-light); color: var(--primary-hover); }
-    .page-current {
-        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 16px;
         color: var(--text-secondary);
-        font-size: 0.95rem;
-        padding: 0 1rem;
-        border-left: 1px solid var(--border-color);
-        border-right: 1px solid var(--border-color);
+        font-weight: 700;
+        transition: var(--transition);
+        font-size: 0.9rem;
+    }
+    .page-btn:hover:not([style*="opacity"]) { 
+        background: rgba(5, 150, 105, 0.1); 
+        color: var(--primary); 
+    }
+    .page-current {
+        font-weight: 800;
+        color: white;
+        font-size: 0.9rem;
+        padding: 0 1.5rem;
+        background: var(--bg-main);
+        height: 44px;
+        display: flex;
+        align-items: center;
+        border-radius: 12px;
     }
 </style>
 

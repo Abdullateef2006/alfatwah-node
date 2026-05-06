@@ -41,14 +41,25 @@ const paginate = (items, pageNumber, pageSize) => {
  * GET /
  * Home page
  */
-router.get('/', (req, res) => {
-  res.render('home', {
-    query: null,
-    count: 0,
-    lectures: [],
-    lecture: null,
-    path: req.path,
-  });
+router.get('/', async (req, res) => {
+  try {
+    const allLectures = await Lecture.findAll({ order: [['id', 'DESC']] });
+    const lectures = allLectures.map(l => ({
+      ...l.toJSON(),
+      imgUrl: mediaUrl(l.img)
+    }));
+
+    res.render('home', {
+      query: null,
+      count: lectures.length,
+      lectures: lectures,
+      lecture: null,
+      path: req.path,
+    });
+  } catch (error) {
+    console.error('Error in home route:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 /**
