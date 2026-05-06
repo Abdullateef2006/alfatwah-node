@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore Al-Fatwa Islamic Teachings: A comprehensive library of lectures and Q&A episodes by Sheikh Dhikrullah Shafi'i to help you grow in faith and understanding.">
+    <meta name="keywords" content="Islamic teachings, Al-Fatwa, Sheikh Dhikrullah Shafi'i, Quran, Sunnah, Islamic lectures, Fatwa, Islamic education">
+    <meta name="author" content="Al-Fatwa Team">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= typeof ogUrl !== 'undefined' ? ogUrl : '' %>">
+    <meta property="og:title" content="<%- typeof ogTitle !== 'undefined' ? ogTitle : 'Al-Fatwa Islamic Teachings' %>">
+    <meta property="og:description" content="Grow in your faith with teachings from Sheikh Dhikrullah Shafi'i.">
+    <meta property="og:image" content="/static/img/bc807b5d-dd43-453a-891c-189497072254.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="<%- typeof ogTitle !== 'undefined' ? ogTitle : 'Al-Fatwa Islamic Teachings' %>">
+    <meta property="twitter:description" content="Grow in your faith with teachings from Sheikh Dhikrullah Shafi'i.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Global CSS System -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+    <title><%- typeof pageTitle !== 'undefined' ? pageTitle : 'Al-Fatwa Islamic Teachings' %></title>
+</head>
+<body>
+    <!-- Glassmorphic Header Navigation -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="/" class="logo-link">
+                <i class="fa-solid fa-book-quran"></i>
+                <span>Al-Fatwa</span>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="/" class="nav-item <%= path === '/' ? 'active' : '' %>">Home</a>
+                <a href="/list/" class="nav-item <%= typeof path !== 'undefined' && path.includes('lecture') ? 'active' : '' %>">Lectures</a>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <%- body %>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-book-quran"></i>
+                    Al-Fatwa Islamic Teachings
+                </div>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/list/">Lectures</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Al-Fatwa Islamic Teachings. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<style>
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+        padding: 1rem;
+    }
+    .pagination-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: var(--bg-card);
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+    }
+    .page-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        border-radius: 9999px;
+        color: var(--text-primary);
+        font-weight: 600;
+        transition: var(--transition);
+        background: transparent;
+        text-decoration: none;
+    }
+    .page-btn:hover { background-color: var(--primary-light); color: var(--primary-hover); }
+    .page-current {
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        padding: 0 1rem;
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+    }
+</style>
+
+<div class="pagination-wrapper">
+    <div class="pagination-container">
+        <% if (page.hasPrevious) { %>
+        <a href="<%= baseUrl %>?page=<%= page.previousPageNumber %>" class="page-btn">
+            <i class="fa-solid fa-arrow-left"></i> Previous
+        </a>
+        <% } else { %>
+        <span class="page-btn" style="opacity: 0.5; cursor: not-allowed;">
+            <i class="fa-solid fa-arrow-left"></i> Previous
+        </span>
+        <% } %>
+
+        <span class="page-current">Page <%= page.number %> of <%= page.numPages %></span>
+
+        <% if (page.hasNext) { %>
+        <a href="<%= baseUrl %>?page=<%= page.nextPageNumber %>" class="page-btn">
+            Next <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <% } else { %>
+        <span class="page-btn" style="opacity: 0.5; cursor: not-allowed;">
+            Next <i class="fa-solid fa-arrow-right"></i>
+        </span>
+        <% } %>
+    </div>
+</div>

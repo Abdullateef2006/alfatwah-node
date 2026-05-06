@@ -1,0 +1,58 @@
+<%- include('layout_header') %>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Lectures</h1>
+    <a href="/admin/lectures/add" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Add New Lecture
+    </a>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Episodes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% lectures.forEach(lecture => { %>
+                <tr>
+                    <td><%= lecture.id %></td>
+                    <td>
+                        <% if (lecture.img) { %>
+                            <img src="/media/<%= lecture.img %>" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                        <% } else { %>
+                            <div style="width: 50px; height: 50px; background: #e2e8f0; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa-solid fa-image" style="color: #94a3b8;"></i>
+                            </div>
+                        <% } %>
+                    </td>
+                    <td style="font-weight: 600;"><%= lecture.title %></td>
+                    <td>
+                        <a href="/admin/episodes/<%= lecture.id %>" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                            Manage Episodes
+                        </a>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="/admin/lectures/edit/<%= lecture.id %>" class="btn btn-secondary" style="padding: 0.4rem 0.8rem;">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <form action="/admin/lectures/delete/<%= lecture.id %>" method="POST" onsubmit="confirmDelete(event)">
+                                <button type="submit" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; color: #ef4444; border-color: #fecaca;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('layout_footer') %>

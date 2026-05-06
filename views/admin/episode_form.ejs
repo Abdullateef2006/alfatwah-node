@@ -1,0 +1,49 @@
+<%- include('layout_header') %>
+
+<div style="margin-bottom: 2rem;">
+    <a href="/admin/episodes/<%= lecture.id %>" style="color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+        <i class="fa-solid fa-arrow-left"></i> Back to Episodes
+    </a>
+    <h1><%= isEdit ? 'Edit' : 'Add' %> Episode</h1>
+    <p style="color: var(--text-muted);">For lecture: <strong><%= lecture.title %></strong></p>
+</div>
+
+<div class="admin-card">
+    <form action="/admin/episodes/<%= isEdit ? 'edit/' + episode.id : lecture.id + '/add' %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" value="<%= episode.title || '' %>" required maxlength="150">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Video File</label>
+            <% if (episode.video) { %>
+                <div style="margin-bottom: 0.5rem;">
+                    <span class="badge badge-success">Current: <%= episode.video %></span>
+                </div>
+            <% } %>
+            <input type="file" name="video" class="form-control" accept="video/*">
+            <small style="color: var(--text-muted);">Leave empty to keep current or if no video.</small>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Audio File</label>
+            <% if (episode.audio) { %>
+                <div style="margin-bottom: 0.5rem;">
+                    <span class="badge badge-success" style="background: #dbeafe; color: #1e40af;">Current: <%= episode.audio %></span>
+                </div>
+            <% } %>
+            <input type="file" name="audio" class="form-control" accept="audio/*">
+            <small style="color: var(--text-muted);">Leave empty to keep current or if no audio.</small>
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-save"></i> <%= isEdit ? 'Update' : 'Create' %> Episode
+            </button>
+            <a href="/admin/episodes/<%= lecture.id %>" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<%- include('layout_footer') %>

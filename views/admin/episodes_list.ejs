@@ -1,0 +1,65 @@
+<%- include('layout_header') %>
+
+<div style="margin-bottom: 2rem;">
+    <a href="/admin/lectures" style="color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+        <i class="fa-solid fa-arrow-left"></i> Back to Lectures
+    </a>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Episodes for: <span style="color: var(--primary);"><%= lecture.title %></span></h1>
+        <a href="/admin/episodes/<%= lecture.id %>/add" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Add New Episode
+        </a>
+    </div>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Media</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% episodes.forEach(episode => { %>
+                <tr>
+                    <td><%= episode.id %></td>
+                    <td style="font-weight: 600;"><%= episode.title %></td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <% if (episode.video) { %>
+                                <span class="badge badge-success"><i class="fa-solid fa-video"></i> Video</span>
+                            <% } %>
+                            <% if (episode.audio) { %>
+                                <span class="badge badge-success" style="background: #dbeafe; color: #1e40af;"><i class="fa-solid fa-microphone"></i> Audio</span>
+                            <% } %>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="/admin/episodes/edit/<%= episode.id %>" class="btn btn-secondary" style="padding: 0.4rem 0.8rem;">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <form action="/admin/episodes/delete/<%= episode.id %>" method="POST" onsubmit="confirmDelete(event)">
+                                <button type="submit" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; color: #ef4444; border-color: #fecaca;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+            <% if (episodes.length === 0) { %>
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                        No episodes found for this lecture.
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('layout_footer') %>

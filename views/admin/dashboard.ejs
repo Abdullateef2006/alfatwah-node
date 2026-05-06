@@ -1,0 +1,36 @@
+<%- include('layout_header') %>
+
+<div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Admin Dashboard</h1>
+</div>
+
+<div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    <div class="admin-card">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <i class="fa-solid fa-chalkboard-user" style="font-size: 2rem; color: var(--primary);"></i>
+            <h3 style="margin: 0;">Total Lectures</h3>
+        </div>
+        <p style="font-size: 2.5rem; font-weight: 800; color: var(--text-primary); margin: 0;"><%= lectureCount %></p>
+        <a href="/admin/lectures" class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">Manage Lectures</a>
+    </div>
+
+    <div class="admin-card">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <i class="fa-solid fa-clapperboard" style="font-size: 2rem; color: #3b82f6;"></i>
+            <h3 style="margin: 0;">Total Episodes</h3>
+        </div>
+        <p style="font-size: 2.5rem; font-weight: 800; color: var(--text-primary); margin: 0;"><%= episodeCount %></p>
+        <p style="color: var(--text-muted); margin-top: 1rem;">Manage episodes within each lecture.</p>
+    </div>
+</div>
+
+<div class="admin-card">
+    <h2>Quick Actions</h2>
+    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+        <a href="/admin/lectures/add" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Add New Lecture
+        </a>
+    </div>
+</div>
+
+<%- include('layout_footer') %>

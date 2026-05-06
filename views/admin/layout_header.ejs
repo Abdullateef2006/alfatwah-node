@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Al-Fatwa</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    <style>
+        .admin-sidebar {
+            background: #fff;
+            border-right: 1px solid var(--border-color);
+            height: calc(100vh - 72px);
+            position: sticky;
+            top: 72px;
+            padding: 2rem 0;
+        }
+        .admin-sidebar .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 2rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .admin-sidebar .nav-item:hover, .admin-sidebar .nav-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-right: 4px solid var(--primary);
+        }
+        .admin-sidebar .nav-item::after { display: none; }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: calc(100vh - 72px);
+        }
+        .admin-content {
+            padding: 2rem 3rem;
+            background: #f8fafc;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        .admin-table th {
+            background: #f1f5f9;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .admin-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .admin-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+        
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-success { background: var(--primary-light); color: var(--primary); }
+        
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        @media (max-width: 992px) {
+            .admin-container { grid-template-columns: 1fr; }
+            .admin-sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="/" class="logo-link">
+                <i class="fa-solid fa-book-quran"></i>
+                <span>Al-Fatwa <small style="font-size: 0.6em; opacity: 0.7;">Admin</small></span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-item">View Site</a>
+                <a href="/admin" class="btn btn-primary">Admin Panel</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <nav>
+                <a href="/admin" class="nav-item <%= path === '/admin' ? 'active' : '' %>">
+                    <i class="fa-solid fa-gauge"></i> Dashboard
+                </a>
+                <a href="/admin/lectures" class="nav-item <%= path.includes('lectures') ? 'active' : '' %>">
+                    <i class="fa-solid fa-chalkboard-user"></i> Lectures
+                </a>
+            </nav>
+        </aside>
+
+        <main class="admin-content">

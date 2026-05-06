@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title><%= lecture.title %> - Al-Fatwa</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="/" class="logo-link">
+                <i class="fa-solid fa-book-quran"></i>
+                <span>Al-Fatwa</span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="/" class="nav-item">Home</a>
+                <a href="/list/" class="nav-item active">Lectures</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <style>
+            .lecture-header {
+                background: linear-gradient(135deg, var(--bg-card), var(--bg-main));
+                padding: 4rem 1rem;
+                border-bottom: 1px solid var(--border-color);
+                margin-bottom: 3rem;
+                text-align: center;
+            }
+            .lecture-title {
+                font-size: clamp(2rem, 4vw, 3rem);
+                color: var(--text-primary);
+                margin-bottom: 1rem;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .lecture-desc {
+                font-size: 1.15rem;
+                color: var(--text-secondary);
+                max-width: 700px;
+                margin: 0 auto;
+                line-height: 1.6;
+            }
+            .episodes-section { max-width: 900px; margin: 0 auto; }
+            .episodes-title {
+                font-size: 2rem;
+                color: var(--text-primary);
+                margin-bottom: 2rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+            .episodes-title i { color: var(--primary); }
+            .episode-item {
+                background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 1.5rem 2rem;
+                margin-bottom: 1rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: var(--transition);
+                box-shadow: var(--shadow-sm);
+            }
+            .episode-item:hover { transform: translateX(10px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
+            .episode-info { display: flex; flex-direction: column; gap: 0.5rem; }
+            .ep-lecture-name { color: var(--primary); font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+            .ep-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
+            .episode-item:hover .ep-title { color: var(--primary); }
+            .listen-btn {
+                flex-shrink: 0;
+                padding: 0.75rem 1.5rem;
+                border-radius: 9999px;
+                background-color: var(--primary-light);
+                color: var(--primary-hover);
+                font-weight: 600;
+                transition: var(--transition);
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .episode-item:hover .listen-btn { background-color: var(--primary); color: white; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4); }
+            @media (max-width: 600px) {
+                .episode-item { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 1.5rem; }
+                .listen-btn { width: 100%; justify-content: center; }
+            }
+        </style>
+
+        <div class="lecture-header">
+            <div class="container">
+                <a href="/list/" style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to All Lectures
+                </a>
+                <h1 class="lecture-title"><%= lecture.title %></h1>
+                <p class="lecture-desc"><%= lecture.description %></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="episodes-section">
+                <h2 class="episodes-title">
+                    <i class="fa-solid fa-layer-group"></i> Episodes
+                </h2>
+
+                <div class="episodes-list">
+                    <% if (episodes.length === 0) { %>
+                    <div style="text-align: center; padding: 3rem; background: var(--bg-card); border-radius: 16px; border: 1px dashed var(--border-color);">
+                        <i class="fa-solid fa-headphones" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--text-secondary); font-size: 1.1rem;">No episodes available for this lecture yet.</p>
+                    </div>
+                    <% } else { %>
+                    <% episodes.forEach(function(ep) { %>
+                    <div class="episode-item">
+                        <div class="episode-info">
+                            <span class="ep-lecture-name"><%= ep.lectureTitle %></span>
+                            <h3 class="ep-title"><%= ep.title %></h3>
+                        </div>
+                        <a href="/lectures/episodes/<%= ep.id %>/" class="listen-btn">
+                            <i class="fa-solid fa-play"></i> Listen Now
+                        </a>
+                    </div>
+                    <% }); %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-book-quran"></i>
+                    Al-Fatwa Islamic Teachings
+                </div>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/list/">Lectures</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Al-Fatwa Islamic Teachings. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('show')) {
+                icon.classList.remove('fa-bars'); icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+</html>
