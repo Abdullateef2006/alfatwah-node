@@ -85,5 +85,19 @@
     </main>
 
     <%- include('partials/footer') %>
+
+    <script>
+        // Save progress for "Resume Learning"
+        try {
+            const lastLearned = {
+                title: `<%- episodes.title.replace(/`/g, '\\`').replace(/\$/g, '\\$') %>`,
+                lectureTitle: `<%- episodes.lecture ? episodes.lecture.title.replace(/`/g, '\\`').replace(/\$/g, '\\$') : '' %>`,
+                url: window.location.pathname
+            };
+            localStorage.setItem('lastLearnedEpisode', JSON.stringify(lastLearned));
+        } catch (e) {
+            console.error('Failed to save learning progress:', e);
+        }
+    </script>
 </body>
 </html>

@@ -4,8 +4,32 @@ const router = express.Router();
 const Lecture = require('../models/Lecture');
 const Episodes = require('../models/Episodes');
 const upload = require('../middleware/upload');
+const { uploadFile, deleteFromCloudinary, generateSignature } = require('../utils/cloudinary');
 const fs = require('fs');
 const path = require('path');
+
+// ---------------------------------------------------------------------------
+// Signature endpoint for client-side direct uploads
+// ---------------------------------------------------------------------------
+router.post('/cloudinary-signature', (req, res) => {
+  try {
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    const paramsToSign = {
+      timestamp: timestamp,
+      folder: 'alfatwa',
+    };
+    const signature = generateSignature(paramsToSign);
+    res.json({
+      signature,
+      timestamp,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME || 'dltgnmg1v',
+      apiKey: process.env.CLOUDINARY_API_KEY || '738298728812741',
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to generate upload signature' });
+  }
+});
 
 // ---------------------------------------------------------------------------
 // Dashboard
@@ -35,7 +59,10 @@ router.get('/lectures/add', (req, res) => {
 router.post('/lectures/add', upload.single('img'), async (req, res) => {
   try {
     const { title, description } = req.body;
-    const img = req.file ? `img/${req.file.originalname}` : null;
+    let img = req.body.img_url || null;
+    if (req.file) {
+      img = await uploadFile(req.file.path);
+    }
     await Lecture.create({ title, description, img });
     res.redirect('/admin/lectures');
   } catch (err) {
@@ -59,7 +86,18 @@ router.post('/lectures/edit/:id', upload.single('img'), async (req, res) => {
 
     const { title, description } = req.body;
     const updateData = { title, description };
-    if (req.file) updateData.img = `img/${req.file.originalname}`;
+
+    if (req.body.img_url) {
+      if (lecture.img) {
+        await deleteFromCloudinary(lecture.img);
+      }
+      updateData.img = req.body.img_url;
+    } else if (req.file) {
+      if (lecture.img) {
+        await deleteFromCloudinary(lecture.img);
+      }
+      updateData.img = await uploadFile(req.file.path);
+    }
 
     await lecture.update(updateData);
     res.redirect('/admin/lectures');
@@ -73,7 +111,12 @@ router.post('/lectures/edit/:id', upload.single('img'), async (req, res) => {
 router.post('/lectures/delete/:id', async (req, res) => {
   try {
     const lecture = await Lecture.findByPk(req.params.id);
-    if (lecture) await lecture.destroy();
+    if (lecture) {
+      if (lecture.img) {
+        await deleteFromCloudinary(lecture.img);
+      }
+      await lecture.destroy();
+    }
     res.redirect('/admin/lectures');
   } catch (err) {
     console.error(err);
@@ -109,8 +152,16 @@ router.post('/episodes/:lectureId/add', upload.fields([{ name: 'video' }, { name
   try {
     const { title } = req.body;
     const lectureId = req.params.lectureId;
-    const video = req.files['video'] ? `video/${req.files['video'][0].originalname}` : null;
-    const audio = req.files['audio'] ? `audio/${req.files['audio'][0].originalname}` : null;
+    
+    let video = req.body.video_url || null;
+    if (req.files && req.files['video']) {
+      video = await uploadFile(req.files['video'][0].path);
+    }
+    
+    let audio = req.body.audio_url || null;
+    if (req.files && req.files['audio']) {
+      audio = await uploadFile(req.files['audio'][0].path);
+    }
 
     await Episodes.create({ title, lecture_id: lectureId, video, audio });
     res.redirect(`/admin/episodes/${lectureId}`);
@@ -135,8 +186,30 @@ router.post('/episodes/edit/:id', upload.fields([{ name: 'video' }, { name: 'aud
 
     const { title } = req.body;
     const updateData = { title };
-    if (req.files['video']) updateData.video = `video/${req.files['video'][0].originalname}`;
-    if (req.files['audio']) updateData.audio = `audio/${req.files['audio'][0].originalname}`;
+
+    if (req.body.video_url) {
+      if (episode.video) {
+        await deleteFromCloudinary(episode.video);
+      }
+      updateData.video = req.body.video_url;
+    } else if (req.files && req.files['video']) {
+      if (episode.video) {
+        await deleteFromCloudinary(episode.video);
+      }
+      updateData.video = await uploadFile(req.files['video'][0].path);
+    }
+
+    if (req.body.audio_url) {
+      if (episode.audio) {
+        await deleteFromCloudinary(episode.audio);
+      }
+      updateData.audio = req.body.audio_url;
+    } else if (req.files && req.files['audio']) {
+      if (episode.audio) {
+        await deleteFromCloudinary(episode.audio);
+      }
+      updateData.audio = await uploadFile(req.files['audio'][0].path);
+    }
 
     await episode.update(updateData);
     res.redirect(`/admin/episodes/${episode.lecture_id}`);
@@ -152,6 +225,12 @@ router.post('/episodes/delete/:id', async (req, res) => {
     const episode = await Episodes.findByPk(req.params.id);
     if (episode) {
       const lectureId = episode.lecture_id;
+      if (episode.video) {
+        await deleteFromCloudinary(episode.video);
+      }
+      if (episode.audio) {
+        await deleteFromCloudinary(episode.audio);
+      }
       await episode.destroy();
       res.redirect(`/admin/episodes/${lectureId}`);
     } else {

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>About Us - Al-Fatwa</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main class="main-content">
+        <!-- About Hero Section -->
+        <div class="list-hero animate-in">
+            <div class="container">
+                <span class="section-label">About the Platform</span>
+                <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">Scholarly Leadership</h1>
+                <p style="color: var(--text-secondary); max-width: 800px; font-size: 1.1rem; line-height: 1.8;">
+                    Al-Fatwa is dedicated to providing authentic Islamic jurisprudence and clarifying matters of faith for Yoruba-speaking Muslims globally, under the guidance of renowned scholars.
+                </p>
+            </div>
+        </div>
+
+        <!-- Biography & Details -->
+        <div class="container animate-in" style="animation-delay: 0.1s; margin-bottom: 10rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+                
+                <!-- Left: Scholar Bio -->
+                <div class="course-card" style="padding: 4rem;">
+                    <span class="section-label">Grand Mufti</span>
+                    <h2 class="card-title" style="font-size: 2.2rem; margin-bottom: 1.5rem; color: white;">Fadeelatu-Sheikh Dhikrullahi Shafi'i</h2>
+                    <p style="color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 2rem; letter-spacing: 0.05em;">
+                        Grand Mufti, Conference of Islamic Organizations (CIO)
+                    </p>
+                    
+                    <div style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); display: flex; flex-direction: column; gap: 1.5rem;">
+                        <p style="font-style: italic; border-left: 3px solid var(--primary); padding-left: 1.5rem; color: var(--text-primary);">
+                            "Awujo ti awa Musulumi Yoruba tin bere nipa awon oro esin Islam lati owo alfa-onimimo, oludajo-agba fun oro esin."
+                        </p>
+                        <p>
+                            Sheikh Dhikrullah Shafi'i is a prominent Islamic scholar, deep legal thinker, and the Grand Mufti of the Conference of Islamic Organizations (CIO). 
+                            He has dedicated his life to teaching, answering complex theological questions, and providing legal decrees (Fatwa) to guide the Muslim Ummah.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Schedule & Links -->
+                <div style="display: flex; flex-direction: column; gap: 3rem;">
+                    <!-- Card: Weekly Fatwah Session -->
+                    <div class="course-card" style="padding: 3rem;">
+                        <span class="section-label">Live Broadcasts</span>
+                        <h3 class="card-title" style="font-size: 1.8rem; margin-bottom: 1rem;">Weekly Live Sessions</h3>
+                        <p class="card-desc" style="font-size: 1.05rem; margin-bottom: 2rem;">
+                            Our live Fatwah sessions are broadcasted directly to our community every week. Join us to ask questions and learn from the Sheikh.
+                        </p>
+                        
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); border-radius: 20px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem;">
+                                <span style="font-weight: 600; color: var(--text-secondary);">Day</span>
+                                <span style="font-weight: 700; color: white;">Every Wednesday</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem;">
+                                <span style="font-weight: 600; color: var(--text-secondary);">Time</span>
+                                <span style="font-weight: 700; color: var(--primary); font-size: 1.1rem;">8:30 PM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: Facebook Stream Link -->
+                    <div class="course-card" style="padding: 3rem; border-color: var(--primary);">
+                        <span class="section-label">Watch Live</span>
+                        <h3 class="card-title" style="font-size: 1.6rem; margin-bottom: 1rem;">Facebook Lectures Page</h3>
+                        <p class="card-desc" style="margin-bottom: 2.5rem;">
+                            Access the live streams, video library, and regular lectures directly on Sheikh Shafi'i's official educational page.
+                        </p>
+                        <a href="https://www.facebook.com/" target="_blank" class="btn btn-primary" style="width: 100%; display: inline-flex; justify-content: center; gap: 1rem; font-size: 1rem;">
+                            <i class="fa-brands fa-facebook-f"></i>
+                            <span>Go to Facebook Page</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

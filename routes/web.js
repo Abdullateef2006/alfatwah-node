@@ -12,7 +12,13 @@ const Questions = require('../models/Questions');
 // ---------------------------------------------------------------------------
 
 /** Build a URL prefix for media files (mirrors Django's MEDIA_URL = 'media/') */
-const mediaUrl = (filePath) => (filePath ? `/media/${filePath}` : null);
+const mediaUrl = (filePath) => {
+  if (!filePath) return null;
+  if (filePath.startsWith('http://') || filePath.startsWith('https://')) {
+    return filePath;
+  }
+  return `/media/${filePath}`;
+};
 
 /** Paginate an array and return a page object compatible with the EJS paginator */
 const paginate = (items, pageNumber, pageSize) => {
@@ -74,7 +80,7 @@ router.get('/list/', async (req, res) => {
     // Attach media URLs to each lecture item
     page.items = page.items.map((l) => ({
       ...l.toJSON(),
-      imgUrl: l.img ? `/media/${l.img}` : null,
+      imgUrl: mediaUrl(l.img),
     }));
 
     res.render('lecture_list', { lecture: page, path: req.path });
@@ -99,7 +105,7 @@ router.get('/lecture/:id/', async (req, res) => {
     });
 
     res.render('details', {
-      lecture: { ...lecture.toJSON(), imgUrl: lecture.img ? `/media/${lecture.img}` : null },
+      lecture: { ...lecture.toJSON(), imgUrl: mediaUrl(lecture.img) },
       episodes: episodes.map((e) => ({
         ...e.toJSON(),
         lectureTitle: lecture.title,
@@ -131,8 +137,8 @@ router.get('/lectures/episodes/:id/', async (req, res) => {
     res.render('episodes', {
       episodes: {
         ...episode.toJSON(),
-        videoUrl: episode.video ? `/media/${episode.video}` : null,
-        audioUrl: episode.audio ? `/media/${episode.audio}` : null,
+        videoUrl: mediaUrl(episode.video),
+        audioUrl: mediaUrl(episode.audio),
       },
       question: questions.map((q) => q.toJSON()),
       path: req.path,
@@ -162,6 +168,14 @@ router.post('/lectures/episodes/:id/', async (req, res) => {
 });
 
 /**
+ * GET /about
+ * About Us Page
+ */
+router.get('/about', (req, res) => {
+  res.render('about', { path: req.path });
+});
+
+/**
  * GET  /search/  — render empty home
  * POST /search/  — search lectures by title or description
  */
@@ -186,7 +200,7 @@ router.post('/search/', async (req, res) => {
       count: lectures.length,
       lectures: lectures.map((l) => ({
         ...l.toJSON(),
-        imgUrl: l.img ? `/media/${l.img}` : null,
+        imgUrl: mediaUrl(l.img),
       })),
       lecture: null,
       path: req.path,

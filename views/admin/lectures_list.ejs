@@ -24,7 +24,7 @@
                     <td><%= lecture.id %></td>
                     <td>
                         <% if (lecture.img) { %>
-                            <img src="/media/<%= lecture.img %>" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                            <img src="<%= lecture.img.startsWith('http') ? lecture.img : '/media/' + lecture.img %>" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
                         <% } else { %>
                             <div style="width: 50px; height: 50px; background: #e2e8f0; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
                                 <i class="fa-solid fa-image" style="color: #94a3b8;"></i>

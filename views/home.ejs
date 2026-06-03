@@ -32,43 +32,46 @@
         </div>
 
         <div class="container">
+            <% if (!query) { %>
             <div class="card-grid" style="margin-top: -6rem; margin-bottom: 10rem;">
                 <!-- Bento Card: Continue Reading -->
-                <div class="course-card bento-large animate-in" style="padding: 3rem;">
+                <div class="course-card bento-large animate-in" style="padding: 3rem;" id="resume-card">
                     <span class="section-label">Resume Learning</span>
-                    <h2 class="card-title" style="font-size: 1.8rem;">Jurisprudence of Modern Life</h2>
-                    <p class="card-desc" style="font-size: 1.05rem;">Continue where you left off in Chapter 4: Ethics of Digital Interaction.</p>
+                    <h2 class="card-title" style="font-size: 1.8rem;" id="resume-lecture-title">Principles of Islamic Jurisprudence</h2>
+                    <p class="card-desc" style="font-size: 1.05rem;" id="resume-episode-title">Start learning with our scholarly series and lectures.</p>
                     <div style="margin-top: 2.5rem;">
-                        <a href="#" style="color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">
-                            Continue Reading <i class="fa-solid fa-arrow-right"></i>
+                        <a href="/list/" style="color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;" id="resume-link">
+                            Explore Library <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Bento Card: Prayer Times -->
-                <div class="course-card animate-in" style="padding: 3rem;">
+                <div class="course-card animate-in" style="padding: 3rem;" id="prayer-card">
                     <span class="section-label">Spiritual Pulse</span>
-                    <h2 class="card-title">Prayer Times</h2>
-                    <div style="margin-top: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border-glass);">
-                            <span style="font-weight: 500; color: var(--text-secondary);">Fajr</span> 
-                            <span style="font-weight: 700; color: var(--primary);">05:12 AM</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; padding: 1rem 0; color: var(--primary);">
-                            <span style="font-weight: 700;">Dhuhr</span> 
-                            <span style="font-weight: 800; font-size: 1.1rem;">12:45 PM</span>
+                    <h2 class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Prayer Times</span>
+                        <small id="prayer-location" style="font-size: 0.55em; color: var(--text-muted); font-weight: normal; text-transform: none;"></small>
+                    </h2>
+                    <div style="margin-top: 1.5rem;" id="prayer-times-list">
+                        <div style="text-align: center; padding: 1.5rem 0; color: var(--text-muted);">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i> Loading timings...
                         </div>
                     </div>
                 </div>
 
-                <!-- Bento Card: Upcoming Lessons -->
-                <div class="course-card animate-in" style="padding: 3rem;">
+                <!-- Bento Card: Live Lessons -->
+                <a href="https://www.facebook.com/" target="_blank" class="course-card animate-in" style="padding: 3rem; display: block; border-color: var(--border-glass);">
                     <span class="section-label">Live Learning</span>
-                    <h2 class="card-title">Live Lessons</h2>
-                    <p class="card-desc">Next: Tafsir of Surah Al-Kahf with Sheikh Shafi'i.</p>
-                    <span style="display: block; margin-top: 1.5rem; color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Today, 8:00 PM</span>
-                </div>
+                    <h2 class="card-title">Live Fatwah Sessions</h2>
+                    <p class="card-desc">Every Wednesday at 8:30 PM. Live Fatwah sessions with Fadeelatu-Sheikh Dhikrullah Shafi'i on Facebook.</p>
+                    <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Wednesdays, 8:30 PM</span>
+                        <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">Join Live <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </div>
+                </a>
             </div>
+            <% } %>
 
             <% if (query) { %>
             <div style="margin-bottom: 8rem;">
@@ -148,5 +151,141 @@
     </main>
 
     <%- include('partials/footer') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ----------------------------------------------------
+            // 1. Resume Learning Logic (from LocalStorage)
+            // ----------------------------------------------------
+            try {
+                const dataStr = localStorage.getItem('lastLearnedEpisode');
+                if (dataStr) {
+                    const lastLearned = JSON.parse(dataStr);
+                    if (lastLearned && lastLearned.url) {
+                        const titleEl = document.getElementById('resume-lecture-title');
+                        const descEl = document.getElementById('resume-episode-title');
+                        const linkEl = document.getElementById('resume-link');
+
+                        titleEl.textContent = lastLearned.lectureTitle || 'Islamic Teachings';
+                        descEl.textContent = `Continue where you left off: ${lastLearned.title}`;
+                        linkEl.innerHTML = `Continue Reading <i class="fa-solid fa-arrow-right"></i>`;
+                        linkEl.setAttribute('href', lastLearned.url);
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to load learning progress:', e);
+            }
+
+            // ----------------------------------------------------
+            // 2. Automated Prayer Times (Aladhan API)
+            // ----------------------------------------------------
+            const prayerList = document.getElementById('prayer-times-list');
+            const prayerLocation = document.getElementById('prayer-location');
+
+            const formatTime12h = (time24) => {
+                if (!time24) return '';
+                const parts = time24.split(' ')[0].split(':');
+                let hours = parseInt(parts[0], 10);
+                const minutes = parts[1];
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // 0 should be 12
+                return `${hours}:${minutes} ${ampm}`;
+            };
+
+            const renderPrayerTimes = (timings, city) => {
+                const prayers = [
+                    { name: 'Fajr', key: 'Fajr' },
+                    { name: 'Dhuhr', key: 'Dhuhr' },
+                    { name: 'Asr', key: 'Asr' },
+                    { name: 'Maghrib', key: 'Maghrib' },
+                    { name: 'Isha', key: 'Isha' }
+                ];
+
+                prayerLocation.textContent = `(${city})`;
+
+                const now = new Date();
+                const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+                let nextPrayerIndex = -1;
+                let minDiff = Infinity;
+
+                const prayerTimesParsed = prayers.map(p => {
+                    const timeStr = timings[p.key].split(' ')[0];
+                    const parts = timeStr.split(':');
+                    const pMinutes = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+                    return { ...p, minutes: pMinutes, formatted: formatTime12h(timings[p.key]) };
+                });
+
+                prayerTimesParsed.forEach((p, idx) => {
+                    const diff = p.minutes - currentMinutes;
+                    if (diff > 0 && diff < minDiff) {
+                        minDiff = diff;
+                        nextPrayerIndex = idx;
+                    }
+                });
+
+                if (nextPrayerIndex === -1) {
+                    nextPrayerIndex = 0; // Next prayer is Fajr tomorrow
+                }
+
+                prayerList.innerHTML = prayerTimesParsed.map((p, idx) => {
+                    const isNext = idx === nextPrayerIndex;
+                    const borderStyle = idx === prayerTimesParsed.length - 1 ? '' : 'border-bottom: 1px solid var(--border-glass);';
+                    const colorClass = isNext ? 'color: var(--primary); font-weight: 700;' : 'color: var(--text-primary);';
+                    const nextBadge = isNext ? '<span style="background: rgba(5, 150, 105, 0.15); color: var(--primary); font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 99px; margin-left: 0.5rem; vertical-align: middle; font-family: \'Inter\', sans-serif;">Next</span>' : '';
+                    return `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; ${borderStyle} ${colorClass}">
+                            <span style="font-weight: 500; display: flex; align-items: center;">${p.name}${nextBadge}</span> 
+                            <span style="font-weight: 700;">${p.formatted}</span>
+                        </div>
+                    `;
+                }).join('');
+            };
+
+            const fetchPrayerTimes = () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        async (position) => {
+                            try {
+                                const lat = position.coords.latitude;
+                                const lon = position.coords.longitude;
+                                const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=3`);
+                                const data = await res.json();
+                                if (data && data.data && data.data.timings) {
+                                    renderPrayerTimes(data.data.timings, 'Your Location');
+                                } else {
+                                    throw new Error('API Error');
+                                }
+                            } catch (err) {
+                                fetchFallback();
+                            }
+                        },
+                        () => {
+                            fetchFallback();
+                        }
+                    );
+                } else {
+                    fetchFallback();
+                }
+            };
+
+            const fetchFallback = async () => {
+                try {
+                    const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Lagos&country=Nigeria&method=3');
+                    const data = await res.json();
+                    if (data && data.data && data.data.timings) {
+                        renderPrayerTimes(data.data.timings, 'Lagos, NG');
+                    } else {
+                        throw new Error('Fallback Error');
+                    }
+                } catch (err) {
+                    prayerList.innerHTML = `<div style="color: var(--text-muted); text-align: center; padding: 1rem;">Unable to load timings.</div>`;
+                }
+            };
+
+            fetchPrayerTimes();
+        });
+    </script>
 </body>
 </html>

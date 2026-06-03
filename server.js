@@ -16,7 +16,7 @@ const apiRoutes = require('./routes/api');
 const adminRoutes = require('./routes/admin');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 
 // ---------------------------------------------------------------------------
 // View engine

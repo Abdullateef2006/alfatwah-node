@@ -50,7 +50,7 @@
         }
         .admin-content {
             padding: 4rem;
-            background: rgba(255,255,255,0.4);
+            background: rgba(10, 15, 24, 0.5);
             backdrop-filter: blur(10px);
         }
         
@@ -110,12 +110,13 @@
             font-family: inherit;
             font-size: 1rem;
             transition: var(--transition);
+            color: white;
         }
         .form-control:focus {
             outline: none;
             border-color: var(--accent);
-            background: #fff;
-            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.1);
+            background: var(--bg-main);
+            box-shadow: 0 10px 30px var(--primary-glow);
         }
         
         .badge {

@@ -10,11 +10,11 @@ const Episodes = sequelize.define('Episodes', {
     primaryKey: true,
   },
   video: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(500),
     allowNull: true,
   },
   audio: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(500),
     allowNull: true,
   },
   title: {

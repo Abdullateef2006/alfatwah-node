@@ -10,6 +10,14 @@ const Episodes = require('../models/Episodes');
 // Helpers
 // ---------------------------------------------------------------------------
 
+const mediaUrl = (filePath) => {
+  if (!filePath) return null;
+  if (filePath.startsWith('http://') || filePath.startsWith('https://')) {
+    return filePath;
+  }
+  return `/media/${filePath}`;
+};
+
 /**
  * Build next/previous page URLs — mirrors DRF PageNumberPagination response shape:
  * { count, next, previous, results }
@@ -57,7 +65,7 @@ router.get('/lecturesApi/', async (req, res) => {
       id: l.id,
       title: l.title,
       description: l.description,
-      img: l.img ? `/media/${l.img}` : null,
+      img: mediaUrl(l.img),
     }));
 
     const paginated = buildPaginatedResponse(req, serialized, req.query.page, 6);
@@ -87,11 +95,11 @@ router.get('/lecturesApi/:id/', async (req, res) => {
         id: lecture.id,
         title: lecture.title,
         description: lecture.description,
-        img: lecture.img ? `/media/${lecture.img}` : null,
+        img: mediaUrl(lecture.img),
       },
       episodes: episodes.map((e) => ({
-        video: e.video ? `/media/${e.video}` : null,
-        audio: e.audio ? `/media/${e.audio}` : null,
+        video: mediaUrl(e.video),
+        audio: mediaUrl(e.audio),
         title: e.title,
         lecture: e.lecture_id,
       })),

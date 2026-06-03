@@ -19,7 +19,7 @@ const Lecture = sequelize.define('Lecture', {
     defaultValue: '',
   },
   img: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(500),
     allowNull: true,
   },
 }, {
